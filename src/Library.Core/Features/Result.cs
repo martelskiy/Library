@@ -8,10 +8,10 @@ namespace Library.Core.Features
         public bool Success { get; }
         public IEnumerable<Error> Errors { get; }
 
-        private Result(bool success, IEnumerable<Error> error = null)
+        protected Result(bool success, IEnumerable<Error> errors = null)
         {
             Success = success;
-            Errors = error ?? Enumerable.Empty<Error>();
+            Errors = errors ?? Enumerable.Empty<Error>();
         }
 
         public static Result Ok()
@@ -22,6 +22,27 @@ namespace Library.Core.Features
         public static Result Fail(IEnumerable<Error> error)
         {
             return new(false, error);
+        }
+    }
+
+    public class Result<T> : Result
+    {
+        public T Data { get; }
+
+        public Result(bool success, T data, IEnumerable<Error> errors = null)
+            : base(success, errors)
+        {
+            Data = data;
+        }
+
+        public new static Result<T> Fail(IEnumerable<Error> errors)
+        {
+            return new(false, default, errors);
+        }
+
+        public static Result<T> Ok(T data)
+        {
+            return new(true, data);
         }
     }
 }
