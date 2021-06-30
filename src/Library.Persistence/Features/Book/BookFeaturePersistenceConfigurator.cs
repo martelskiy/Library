@@ -11,6 +11,7 @@ namespace Library.Persistence.Features.Book
                 .AddDbContext<BookContext>(builder => builder.UseInMemoryDatabase("Book"));
 
             serviceCollection.AddScoped<ICreateBookCommand, CreateBookCommand>();
+            serviceCollection.AddScoped<IGetBooksQuery, GetBooksQuery>();
             serviceCollection.AddSingleton<BookEntityFactory>();
         }
     }

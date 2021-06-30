@@ -11,5 +11,14 @@
                 IsAvailable = book.IsAvailable
             };
         }
+
+        public Core.Features.Book.Book Create(BookEntity bookEntity)
+        {
+            return new(
+                bookEntity.Id, 
+                bookEntity.Name, 
+                bookEntity.Author, 
+                bookEntity.IsAvailable);
+        }
     }
 }

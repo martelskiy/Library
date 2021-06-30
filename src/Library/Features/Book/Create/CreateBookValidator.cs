@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace Library.Features.Book
+namespace Library.Features.Book.Create
 {
-    public class CreateBookValidator : AbstractValidator<BookDto>
+    public class CreateBookValidator : AbstractValidator<CreateBookDto>
     {
         public CreateBookValidator()
         {

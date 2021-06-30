@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Library.Core.Features;
+using Library.Features.Book.Create;
+using Library.Features.Book.Fetch;
 using Library.Features.Response;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +28,9 @@ namespace Library.Features.Book
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(InternalServerErrorProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateBook([FromBody] BookDto book, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateBook([FromBody] CreateBookDto createBook, CancellationToken cancellationToken)
         {
-            var result = await _bookService.CreateBookAsync(book, cancellationToken);
+            var result = await _bookService.CreateBookAsync(createBook, cancellationToken);
 
             if (result.Errors.Any(error => error.Type.Equals(ErrorType.Unspecified)))
                 return new ObjectResult(new InternalServerErrorProblemDetails());
@@ -36,6 +39,24 @@ namespace Library.Features.Book
                 return new ObjectResult(new BadRequestProblemDetails(result.Errors.Select(error => string.Join(',', error.Message))));
 
             return Ok();
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<GetBookResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NotFoundProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(InternalServerErrorProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetBooks([FromQuery] string author, CancellationToken cancellationToken)
+        {
+            var result = await _bookService.GetBooks(author, cancellationToken);
+
+            if (result.Errors.Any(error => error.Type.Equals(ErrorType.Unspecified)))
+                return new ObjectResult(new InternalServerErrorProblemDetails());
+
+            if (!result.Data.Any())
+            {
+                return NotFound(new NotFoundProblemDetails());
+            }
+            return Ok(result.Data);
         }
     }
 }
