@@ -48,7 +48,7 @@ namespace Library.Features.Book
         [ProducesResponseType(typeof(InternalServerErrorProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBooks([FromQuery] string author, CancellationToken cancellationToken)
         {
-            var result = await _bookService.GetBooks(author, cancellationToken);
+            var result = await _bookService.GetBooksAsync(author, cancellationToken);
 
             if (result.Errors.Any(error => error.Type.Equals(ErrorType.Unspecified)))
                 return new ObjectResult(new InternalServerErrorProblemDetails());
@@ -67,7 +67,7 @@ namespace Library.Features.Book
         [ProducesResponseType(typeof(InternalServerErrorProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> LoanBook([FromRoute] int bookId, CancellationToken cancellationToken)
         {
-            var result = await _bookService.LoanBook(new LoanBookRequestDto{ BookId = bookId }, cancellationToken);
+            var result = await _bookService.LoanBookAsync(new LoanBookRequestDto{ BookId = bookId }, cancellationToken);
 
             if (result.Errors.Any(error => error.Type.Equals(ErrorType.Unspecified)))
                 return new ObjectResult(new InternalServerErrorProblemDetails());

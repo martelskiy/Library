@@ -50,7 +50,7 @@ namespace Library.Features.Book
             return result;
         }
 
-        public async Task<Result<IReadOnlyList<GetBookResponseDto>>> GetBooks(string author, CancellationToken cancellationToken)
+        public async Task<Result<IReadOnlyList<GetBookResponseDto>>> GetBooksAsync(string author, CancellationToken cancellationToken)
         {
             var result = await _getBooksQuery.ExecuteAsync(author, cancellationToken);
 
@@ -62,7 +62,7 @@ namespace Library.Features.Book
             return Result<IReadOnlyList<GetBookResponseDto>>.Fail(result.Errors);
         }
 
-        public async Task<Result> LoanBook(LoanBookRequestDto loanBookRequestDto, CancellationToken cancellationToken)
+        public async Task<Result> LoanBookAsync(LoanBookRequestDto loanBookRequestDto, CancellationToken cancellationToken)
         {
             var validationResult = await _loanRequestValidator.ValidateAsync(loanBookRequestDto, cancellationToken);
 

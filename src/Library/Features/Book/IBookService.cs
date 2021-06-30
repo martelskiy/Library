@@ -11,7 +11,7 @@ namespace Library.Features.Book
     public interface IBookService
     {
         public Task<Result> CreateBookAsync(CreateBookRequestDto createBookRequest, CancellationToken cancellationToken);
-        public Task<Result<IReadOnlyList<GetBookResponseDto>>> GetBooks(string author, CancellationToken cancellationToken);
-        public Task<Result> LoanBook(LoanBookRequestDto loanBookRequestDto, CancellationToken cancellationToken);
+        public Task<Result<IReadOnlyList<GetBookResponseDto>>> GetBooksAsync(string author, CancellationToken cancellationToken);
+        public Task<Result> LoanBookAsync(LoanBookRequestDto loanBookRequestDto, CancellationToken cancellationToken);
     }
 }
