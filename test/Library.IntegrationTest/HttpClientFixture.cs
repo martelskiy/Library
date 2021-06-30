@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using Library.Core.Features;
+using Library.IntegrationTest.Book.Mocks;
+using Library.Persistence.Features.Book;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -33,6 +38,10 @@ namespace Library.IntegrationTest
 
         private static void ConfigureDefaultServices(IServiceCollection services)
         {
+            services.AddScoped<ICreateBookCommand, CreateBookCommandMock>(_ => new CreateBookCommandMock(Result.Ok()));
+            services.AddScoped<ILoanBookCommand, LoanBookCommandMock>(_ => new LoanBookCommandMock(Result.Ok()));
+            services.AddScoped<IGetBooksQuery, GetBooksQueryMock>(_ => new GetBooksQueryMock(
+                Result<IReadOnlyList<Core.Features.Book.Book>>.Ok(Enumerable.Empty<Core.Features.Book.Book>().ToList())));
         }
     }
 }
