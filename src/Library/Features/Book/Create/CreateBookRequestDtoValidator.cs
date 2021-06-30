@@ -2,9 +2,9 @@
 
 namespace Library.Features.Book.Create
 {
-    public class CreateBookValidator : AbstractValidator<CreateBookDto>
+    public class CreateBookRequestDtoValidator : AbstractValidator<CreateBookRequestDto>
     {
-        public CreateBookValidator()
+        public CreateBookRequestDtoValidator()
         {
             RuleFor(book => book.Author).NotEmpty();
 

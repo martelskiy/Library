@@ -12,6 +12,7 @@ namespace Library.Persistence.Features.Book
 
             serviceCollection.AddScoped<ICreateBookCommand, CreateBookCommand>();
             serviceCollection.AddScoped<IGetBooksQuery, GetBooksQuery>();
+            serviceCollection.AddScoped<ILoanBookCommand, LoanBookCommand>();
             serviceCollection.AddSingleton<BookEntityFactory>();
         }
     }

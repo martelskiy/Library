@@ -3,6 +3,7 @@
     public enum ErrorType
     {
         Unspecified,
-        Validation
+        Validation,
+        NotFound
     }
 }

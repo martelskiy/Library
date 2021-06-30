@@ -51,7 +51,7 @@ namespace Library.Persistence.Features.Book
             }
             catch (Exception exception)
             {
-                const string errorMessage = "Failed ot create a book in the database";
+                const string errorMessage = "Failed to fetch books from the database";
                 _logger.LogError(exception, errorMessage);
                 return Result<IReadOnlyList<Core.Features.Book.Book>>.Fail(new[] { new Error(errorMessage, ErrorType.Unspecified) });
             }

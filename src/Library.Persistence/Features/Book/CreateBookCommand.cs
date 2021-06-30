@@ -36,7 +36,7 @@ namespace Library.Persistence.Features.Book
             }
             catch (Exception exception)
             {
-                const string errorMessage = "Failed ot create a book in the database";
+                const string errorMessage = "Failed to create a book in the database";
                 _logger.LogError(exception, errorMessage);
                 return Result.Fail(new []{new Error(errorMessage, ErrorType.Unspecified)});
             }

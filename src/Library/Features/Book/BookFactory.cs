@@ -5,15 +5,16 @@ namespace Library.Features.Book
 {
     public class BookFactory
     {
-        public Core.Features.Book.Book Create(CreateBookDto createBookDto)
+        public Core.Features.Book.Book Create(CreateBookRequestDto createBookRequestDto)
         {
-            return new(createBookDto.Name, createBookDto.Author, createBookDto.IsAvailable);
+            return new(createBookRequestDto.Name, createBookRequestDto.Author, createBookRequestDto.IsAvailable);
         }
 
         public GetBookResponseDto Create(Core.Features.Book.Book book)
         {
             return new()
             {
+                Id = book.Id,
                 Author = book.Author,
                 Name = book.Name,
                 IsAvailable = book.IsAvailable
